@@ -1,0 +1,32 @@
+Nödvändiga beroenden:
+    CarController -> Car
+    CarView -> CarController
+    TurboCar -> Car
+    TrimCar -> Car
+    CarWorkshop -> Car
+    Saab95 -> TurboCar
+    Volvo240 -> TrimCar
+    Truck -> Car
+    Scania -> Truck
+    CarTransport -> Truck
+    CarTransport -> Car (HasA)
+    CarTransport -> CarStorage
+    CarWorkshop -> CarStorage
+    Car -> Moveable
+    CarController -> CarView
+
+Create a new interface CarStorage for things that store cars (carTransport and CarWorkshop
+
+onödiga beroenden:
+    Det finns inga, vår kod är perfekt :D
+
+Starkare beroenden än nödvändigt:
+    Truck kanske borde inherita från Car istället för TrimCar
+
+Övriga designprinciper:
+    Vi bryter mot open-closed principen när vi använder liknande if-satser i både carcontroller och CarView för att sluta rendera bilden när den är i verkstaden
+    
+Ansvarsområden:
+    carController håller koll på alla bilar
+    carView tar input för bilarna och kör funktioner från carController
+    DrawPanel ritar upp bilarna och uppdaterar de.
