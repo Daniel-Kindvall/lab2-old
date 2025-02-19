@@ -61,27 +61,17 @@ public class CarController {
             int carIndex = 0;
             for (Car car : cars) {
 
-                if (car.getPosition()[0] > frameWidth - 100) {
+                if (car.getPosition()[0] > frameWidth - 100 || car.getPosition()[0] < 0) {
                     car.stopEngine();
-                    car.setPosition(new double[] {frameWidth - 100, car.getPosition()[1]});
-                    car.turnRight();
-                    car.turnRight();
-                    car.startEngine();
-                } else if (car.getPosition()[0] < 0) {
-                    car.stopEngine();
-                    car.setPosition(new double[] {0, car.getPosition()[1]});
+                    double clampedValues = Math.min(Math.max(car.getPosition()[0], 0), frameWidth - 100);
+                    car.setPosition(new double[] {clampedValues, car.getPosition()[1]});
                     car.turnRight();
                     car.turnRight();
                     car.startEngine();
                 } else if (car.getPosition()[1] > frameHeight) {
                     car.stopEngine();
-                    car.setPosition(new double[] {car.getPosition()[0], frameHeight-50});
-                    car.turnRight();
-                    car.turnRight();
-                    car.startEngine();
-                } else if (car.getPosition()[1] < 0) {
-                    car.stopEngine();
-                    car.setPosition(new double[] {car.getPosition()[0], frameHeight});
+                    double clampedValues = Math.min(Math.max(car.getPosition()[1], frameWidth - 100), frameWidth - 50);
+                    car.setPosition(new double[] {car.getPosition()[0], clampedValues});
                     car.turnRight();
                     car.turnRight();
                     car.startEngine();
