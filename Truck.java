@@ -1,9 +1,11 @@
 import java.awt.*;
 
-public abstract class Truck extends TrimCar {
+public abstract class Truck extends Car {
     private double cargoBedAngle = 0;
+    private final double trimFactor;
     public Truck(int nrDoors, double enginePower, Color color, String modelName, int carSize, double trimFactor){
-        super(nrDoors, enginePower, color, modelName, carSize, trimFactor);
+        super(nrDoors, enginePower, color, modelName, carSize);
+        this.trimFactor = trimFactor;
     }
 
     public double getCargoBedAngle() {
@@ -28,4 +30,10 @@ public abstract class Truck extends TrimCar {
             removeMovementHindrance("cargoBedIsRaised");
         }
     }
+
+    @Override
+    protected double speedFactor(){
+        return getEnginePower() * 0.01 * trimFactor;
+    }
+    
 }
