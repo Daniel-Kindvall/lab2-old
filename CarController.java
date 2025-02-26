@@ -12,18 +12,10 @@ import java.util.ArrayList;
  */
 
 public class CarController {
-    // member fields:
-
-    // The delay (ms) corresponds to 20 updates a sec (hz)
-    private final int delay = 50;
-    // The timer is started with a listener (see below) that executes the statements
-    // each step between delays.
-    private Timer timer = new Timer(delay, new TimerListener());
-
-    // The frame that represents this instance View of the MVC pattern
-    CarView frame;
     // A list of cars, modify if needed
     ArrayList<Car> cars = new ArrayList<>();
+    int frameWidth;
+    int frameHeight;
 
     CarWorkshop<Volvo240> volvoWorkshop = new CarWorkshop<>(3);
     int workshopX = 300;
@@ -31,33 +23,30 @@ public class CarController {
     int workshopWidth = 100;
     int workshopHeight = 100;
 
-    //methods:
+    CarView frame;
 
-    public static void main(String[] args) {
-        // Instance of this class
-        CarController cc = new CarController();
+    public CarController(ArrayList<Car> carList, int screenWidth, int screenHeight, int timerDelay) {
+        for (int index = 0; index < carList.size(); index++) {
+            this.cars.add(carList.get(index));
+            carList.get(index).setPosition(new double[] {0, 150 * index});
+        }
+        this.frameWidth = screenWidth;
+        this.frameHeight = screenHeight;
 
-        cc.cars.add(new Volvo240());
-        cc.cars.getLast().setPosition(new double[] {0, 300});
-        cc.cars.add(new Saab95());
-        cc.cars.getLast().setPosition(new double[] {0, 150});
-        cc.cars.add(new Scania());
-        cc.cars.getLast().setPosition(new double[] {0, 0});
+        // The frame that represents this instance View of the MVC pattern
+        this.frame = new CarView("Car Simulator 1.0", this);
 
-        // Start a new view and send a reference of self
-        cc.frame = new CarView("CarSim 1.0", cc);
-
+        final Timer timer = new Timer(timerDelay, new TimerListener());
         // Start the timer
-        cc.timer.start();
+        timer.start();
     }
 
+    //methods:
     /* Each step the TimerListener moves all the cars in the list and tells the
     * view to update its images. Change this method to your needs.
     * */
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            double frameWidth = frame.getContentPane().getSize().getWidth();
-            double frameHeight = frame.getContentPane().getSize().getHeight();
             int carIndex = 0;
             for (Car car : cars) {
 
