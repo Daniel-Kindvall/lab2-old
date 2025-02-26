@@ -103,7 +103,7 @@ public class CarController {
 
     void turboOn() {
         for (Car car : cars) {
-            if (car.getClass() == Saab95.class) {
+            if (car.getClass().getSuperclass() == TurboCar.class) {
                 TurboCar turboCar = (TurboCar)car;
                 turboCar.setTurboOn();
             }
@@ -112,7 +112,7 @@ public class CarController {
 
     void turboOff() {
         for (Car car : cars) {
-            if (car.getClass() == Saab95.class) {
+            if (car.getClass().getSuperclass() == TurboCar.class) {
                 TurboCar turboCar = (TurboCar)car;
                 turboCar.setTurboOff();
             }

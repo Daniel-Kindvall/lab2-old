@@ -8,9 +8,10 @@ public class Main {
         final int X = 800;
         final int Y = 800;
         ArrayList<Car> carList = new ArrayList<>();
-        carList.add(new Volvo240());
-        carList.add(new Saab95());
-        carList.add(new Scania());
+        CarFactory carFactory = new CarFactory();
+        carList.add(carFactory.createCar("Volvo240"));
+        carList.add(carFactory.createCar("Saab95"));
+        carList.add(carFactory.createCar("Scania"));
 
         CarController controller = new CarController(carList, X, Y, 50);
     }
