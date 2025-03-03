@@ -66,7 +66,7 @@ public class CarTransport {
         return Math.abs(Math.sqrt(Math.pow(difference[0], 2.0) + Math.pow(difference[1], 2.0)));
     }
 
-    public Boolean loadCar(Car car) {
+    public boolean loadCar(Car car) {
         if (
             this.isRampOpen() &&
             calculateDistance(car) < 12.5 &&

@@ -32,6 +32,10 @@ abstract class Car implements Movable {
         this.movementHindrances.remove(hindranceName);
     }
 
+    public Set<String> getMovementHindrances() {
+        return this.movementHindrances;
+    }
+
     public boolean isMoveable() {
         if (movementHindrances.size() > 0) {
             return false;

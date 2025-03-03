@@ -1,6 +1,4 @@
 public class CarFactory {
-
-
     public Volvo240 createVolvo240() {
         return new Volvo240();
     }
