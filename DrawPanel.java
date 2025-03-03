@@ -56,6 +56,11 @@ public class DrawPanel extends JPanel{
 
     }
 
+    public void createCarObserver(Point coordinates) {
+        Point coordinates = coordinates;
+        BufferedImage 
+    }
+
     // This method is called each time the panel updates/refreshes/repaints itself
     // TODO: Change to suit your needs.
     @Override
