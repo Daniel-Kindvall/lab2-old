@@ -17,7 +17,7 @@ public class CarView extends JFrame{
     DrawPanel drawPanel;
 
     // The controller member
-    CarController carC;
+    ControllerInputs carC;
 
 
     JPanel controlPanel = new JPanel();
@@ -40,9 +40,9 @@ public class CarView extends JFrame{
     JButton stopButton = new JButton("Stop all cars");
 
     // Constructor
-    public CarView(String framename, CarController cc){
+    public CarView(String framename, ControllerInputs cc){
         this.carC = cc;
-        this.drawPanel = new DrawPanel(cc.frameWidth, cc.frameHeight - 240);
+        this.drawPanel = new DrawPanel(cc.getFrameWidth(), cc.getFrameHeight() - 240);
         initComponents(framename);
     }
 
@@ -51,7 +51,7 @@ public class CarView extends JFrame{
     private void initComponents(String title) {
 
         this.setTitle(title);
-        this.setPreferredSize(new Dimension(carC.frameWidth, carC.frameHeight));
+        this.setPreferredSize(new Dimension(carC.getFrameWidth(), carC.getFrameHeight()));
         this.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 
         this.add(drawPanel);
@@ -84,20 +84,20 @@ public class CarView extends JFrame{
         controlPanel.add(turboOffButton, 5);
         controlPanel.add(lowerBedButton, 6);
         controlPanel.add(removeCarButton, 7);
-        controlPanel.setPreferredSize(new Dimension((carC.frameWidth / 2)+4, 200));
+        controlPanel.setPreferredSize(new Dimension((carC.getFrameWidth() / 2)+4, 200));
         this.add(controlPanel);
         controlPanel.setBackground(Color.CYAN);
 
 
         startButton.setBackground(Color.blue);
         startButton.setForeground(Color.green);
-        startButton.setPreferredSize(new Dimension(carC.frameWidth / 5-15,200));
+        startButton.setPreferredSize(new Dimension(carC.getFrameWidth() / 5-15,200));
         this.add(startButton);
 
 
         stopButton.setBackground(Color.red);
         stopButton.setForeground(Color.black);
-        stopButton.setPreferredSize(new Dimension(carC.frameWidth / 5-15,200));
+        stopButton.setPreferredSize(new Dimension(carC.getFrameWidth() / 5-15,200));
         this.add(stopButton);
 
         // This actionListener is for the gas button only

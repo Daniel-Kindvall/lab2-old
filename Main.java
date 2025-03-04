@@ -10,6 +10,7 @@ public class Main {
 
         CarWorkshop<Volvo240> volvoWorkshop = new CarWorkshop<Volvo240>(3);
         volvoWorkshop.setPosition(new double[] {300, 300});
+        
         controller.addWorkshop(Volvo240.class, volvoWorkshop, "VolvoBrand.jpg");
         
         controller.addCar(carFactory.createVolvo240());

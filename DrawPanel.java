@@ -50,6 +50,7 @@ public class DrawPanel extends JPanel{
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        // Paint the cars.
         for (Car car : cars.keySet()) {
             if (!car.getMovementHindrances().contains("isInWorkshop")) {
                 Image image = cars.get(car);
@@ -57,6 +58,7 @@ public class DrawPanel extends JPanel{
             }
         }
         
+        // Paint the workshops.
         for (CarWorkshop<? extends Car> workshop : workshops.keySet()) {
             Image image = workshops.get(workshop);
             g.drawImage(image, (int)workshop.getPosition()[0], (int)workshop.getPosition()[1], null);

@@ -10,7 +10,7 @@ import java.util.HashMap;
 * modifying the model state and the updating the view.
  */
 
-public class CarController {
+public class CarController implements ControllerInputs {
     CarView frame;
     int frameWidth;
     int frameHeight;
@@ -33,7 +33,7 @@ public class CarController {
         this.frameWidth = screenWidth;
         this.frameHeight = screenHeight;
         this.maxCars = (this.frameHeight - 240) / 80;
-        this.frame = new CarView("Car Simulator 1.0", this);
+        this.frame = new CarView("Car Simulator 1.0", (ControllerInputs)this);
 
         final Timer timer = new Timer(timerDelay, new TimerListener());
         // Start the timer
@@ -44,6 +44,16 @@ public class CarController {
     /* Each step the TimerListener moves all the cars in the list and tells the
     * view to update its images. Change this method to your needs.
     * */
+
+    @Override
+    public int getFrameHeight() {
+        return this.frameHeight;
+    }
+
+    @Override
+    public int getFrameWidth() {
+        return this.frameWidth;
+    }
 
     public void addWorkshop(Class<? extends Car> workshopType, CarWorkshop<? extends Car> workshop, String image) {
         this.frame.drawPanel.addWorkshop(workshop, image);
@@ -139,7 +149,9 @@ public class CarController {
     }
 
     // Calls the gas method for each car once
-    void gas(int amount) {
+
+    @Override
+    public void gas(int amount) {
         double gas = ((double) amount) / 100;
         for (Car car : cars) {
             car.gas(gas);
@@ -147,56 +159,63 @@ public class CarController {
     }
 
     // Calls the brake method for each car once
-    void brake(int amount) {
+    @Override
+    public void brake(int amount) {
         double brake = ((double) amount) / 100;
         for (Car car : cars) {
             car.brake(brake);
         }
     }
 
-    void turboOn() {
+    @Override
+    public void turboOn() {
         for (Car car : cars) {
-            if (car.getClass().getSuperclass() == TurboCar.class) {
+            if (car instanceof TurboCar) {
                 TurboCar turboCar = (TurboCar)car;
                 turboCar.setTurboOn();
             }
         }
     }
 
-    void turboOff() {
+    @Override
+    public void turboOff() {
         for (Car car : cars) {
-            if (car.getClass().getSuperclass() == TurboCar.class) {
+            if (car instanceof TurboCar) {
                 TurboCar turboCar = (TurboCar)car;
                 turboCar.setTurboOff();
             }
         }
     }
 
-    void raiseBed() {
+    @Override
+    public void raiseBed() {
         for (Car car : cars) {
-            if (car.getClass().getSuperclass() == Truck.class) {
+            if (car instanceof Truck) {
                 Truck truck = (Truck)car;
                 truck.raiseCargoBed(70);
             }
         }
     }
 
-    void lowerBed() {
+    @Override
+    public void lowerBed() {
         for (Car car : cars) {
-            if (car.getClass().getSuperclass() == Truck.class) {
+            if (car instanceof Truck) {
                 Truck truck = (Truck)car;
                 truck.lowerCargoBed(70);
             }
         }
     }
 
-    void startCars() {
+    @Override
+    public void startCars() {
         for (Car car : cars) {
             car.startEngine();
         }
     }
 
-    void stopCars() {
+    @Override
+    public void stopCars() {
         for (Car car : cars) {
             car.stopEngine();
         }

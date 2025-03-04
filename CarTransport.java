@@ -1,40 +1,16 @@
 import java.awt.*;
 import java.util.Stack;
 
-public class CarTransport {
+public class CarTransport extends Car implements Truck{
     Stack<Car> carStack = new Stack<>();
     int carStackSize = 4;
     int maxCarSize = 2;
+    double trimFactor = 0.5;
+    private double cargoBedAngle = 0;
 
-    private Truck parent;
     public CarTransport(){
         // Create an anonymous class
-        this.parent = new Truck(2, 400, Color.blue, "Lada", 3, 0.5){};
-    }
-
-    /* Car methods */
-    public void startEngine() {
-        parent.startEngine();
-    }
-
-    public void gas(double amount) {
-        parent.gas(amount);
-    }
-
-    public double[] getPosition() {
-        return parent.getPosition();
-    }
-
-    public double[] getDirection() {
-        return parent.getDirection();
-    }
-
-    public double getCurrentSpeed() {
-        return parent.getCurrentSpeed();
-    }
-
-    public void setPosition(double[] newPos) {
-        parent.setPosition(newPos);
+        super(2, 400, Color.blue, "Lada", 3);
     }
 
     /* Car transport specific methods */
@@ -42,21 +18,32 @@ public class CarTransport {
         return maxCarSize;
     }
 
-    public void openRamp(){
-        parent.raiseCargoBed(1);
+    @Override
+    public void raiseCargoBed(double i){
+        raiseCargoBed();
+    }
+    public void raiseCargoBed() {
+        this.cargoBedAngle = 1;
     }
 
-    public void closeRamp(){
-        parent.lowerCargoBed(70);
+    @Override
+    public void lowerCargoBed(double i){
+        lowerCargoBed();
+    }
+    public void lowerCargoBed(){
+        this.cargoBedAngle = 0;
     }
 
     public boolean isRampOpen() {
-        if (parent.getCargoBedAngle() > 0) {
+        if (this.getCargoBedAngle() > 0) {
             return true;
         }
         return false;
     }
-
+    @Override
+    public double getCargoBedAngle() {
+        return cargoBedAngle;
+    }
 
     private double calculateDistance(Car car) {
         double[] difference = new double[2];
@@ -97,6 +84,11 @@ public class CarTransport {
         } else {
             throw new Error("There are no cars on the car transport.");
         }
+    }
+
+    @Override
+    protected double speedFactor(){
+        return getEnginePower() * 0.01 * trimFactor;
     }
 
     public void move() {
