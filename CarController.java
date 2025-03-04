@@ -174,18 +174,18 @@ public class CarController {
 
     void raiseBed() {
         for (Car car : cars) {
-            if (car.getClass() == Scania.class) {
-                Scania scania = (Scania)car;
-                scania.raiseCargoBed(70);
+            if (car.getClass().getSuperclass() == Truck.class) {
+                Truck truck = (Truck)car;
+                truck.raiseCargoBed(70);
             }
         }
     }
 
     void lowerBed() {
         for (Car car : cars) {
-            if (car.getClass() == Scania.class) {
-                Scania scania = (Scania)car;
-                scania.lowerCargoBed(70);
+            if (car.getClass().getSuperclass() == Truck.class) {
+                Truck truck = (Truck)car;
+                truck.lowerCargoBed(70);
             }
         }
     }
